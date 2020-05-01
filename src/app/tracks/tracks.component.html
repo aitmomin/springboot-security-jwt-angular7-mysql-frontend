@@ -1,0 +1,150 @@
+<!--<h6><b><u><a routerLink="../../../">{{routeParams.name}} - Albums et Singles </a></u>-->
+  <!--<i class="caret right icon"></i><u>Tracks</u></b></h6>-->
+<div class="ui small breadcrumb">
+  <a routerLink="../../../" class="section">{{selectedArtist.nickname}} - Albums et Singles</a>
+  <i class="right chevron icon divider"></i>
+  <div class="active section">Tracks</div>
+</div>
+<!--<mat-divider></mat-divider>-->
+<br><br>
+<div class="row">
+  <div class="col-sm-3">
+    <!--<h6><a routerLink="../../../">{{routeParams.name}} - Albums </a> > Tracks</h6>-->
+    <!--<mat-divider></mat-divider>-->
+    <!--<br>-->
+    <div class="row">
+      <img src="Card" src="http://localhost:8080/album/image/{{albumID}}" class="img-thumbnail" style="width:120px;height:130px;">
+      <div style="padding-left: 10px; padding-top: 10px">
+        <p style="font-size: 10px">
+          <strong style="font-size: 20px">{{selectedAlbum.albumName}}</strong><br>
+          <strong style="font-size: 12px">{{selectedArtist.nickname}} <i class="caret right icon"></i></strong><br><br>
+          <b>{{selectedAlbum.gender}}</b> <br>
+          <b>{{selectedAlbum.trackCount}} chansons</b> <br>
+          <b>Ajouté le {{selectedAlbum.releaseDate | date: 'd MMM yyyy'}}</b><br>
+          <b>{{selectedAlbum.views}} vues</b> <br>
+          <b>{{selectedAlbum.rating}} j'aime</b>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-8">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrer">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
+
+        <!-- N° Column -->
+        <ng-container matColumnDef="trackNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+          <td mat-cell *matCellDef="let row"> {{row.trackNumber }} </td>
+        </ng-container>
+
+        <!-- track title Column -->
+        <ng-container matColumnDef="trackTitle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> titre de chanson </th>
+          <td mat-cell *matCellDef="let row"> {{row.trackTitle}} </td>
+        </ng-container>
+
+        <!-- time Column -->
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> durée </th>
+          <td mat-cell *matCellDef="let row"> {{row.time}} </td>
+        </ng-container>
+
+        <!-- date Column -->
+        <ng-container matColumnDef="releaseDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> date de sortie </th>
+          <td mat-cell *matCellDef="let row"> {{row.releaseDate | date: 'dd-MM-yyyy'}} </td>
+        </ng-container>
+
+        <!-- views Column -->
+        <ng-container matColumnDef="views">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> <mat-icon>visibility</mat-icon> </th>
+          <td mat-cell *matCellDef="let row"> {{row.views}} vues</td>
+        </ng-container>
+
+        <!-- rating Column -->
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> j'aime </th>
+          <td mat-cell *matCellDef="let row"> <i class="heart outline icon large"></i> {{row.rating}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="row.views > 100?frame.show():''; row.views < 100?playTrackWhitoutAdvrt(row):playTrack(row)" class="clickcursor"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+    </div>
+
+    <div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true" (closed)="continue()" >
+      <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content form-elegant">
+          <!--Header-->
+          <div class="modal-header text-center">
+            <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+              <img class="animated bounce" src="http://localhost:8080/advertisements/logo/{{adv.id}}" height="65" width="65" *ngIf="adv.logo"/>
+              <strong> {{adv.title}}</strong>
+            </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()"
+                    data-inverted="" data-tooltip="Fermer l'annonce" data-position="right center">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!--Body-->
+          <div class="modal-body mx-4">
+            <!--Body-->
+            <div class="md-form mb-5">
+              <a href="{{adv.website}}" target="_blank" (click)="clickLinkAdvertisement()">
+                <img src="http://localhost:8080/advertisements/image/{{adv.id}}" width="100%" height="200px" *ngIf="adv.image"/>
+              </a>
+              <br>
+              (Sponsorisée.)<br>
+              {{adv.description}}
+              <a href="{{adv.website}}" target="_blank" (click)="clickLinkAdvertisement()">En savoir plus <i class="angle right icon"></i></a>
+            </div>
+            <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> Nos réseaux sociaux :</p>
+            <div class="row my-3 d-flex justify-content-center">
+              <!--Facebook-->
+              <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                      mdbWavesEffect *ngIf="adv.facebook" (click)="clickLinkAdvertisement()">
+                <a href="{{adv.facebook}}" target="_blank">
+                  <i class="facebook icon large"></i>
+                </a>
+              </button>
+              <!--Twitter-->
+              <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                      mdbWavesEffect *ngIf="adv.twitter" (click)="clickLinkAdvertisement()">
+                <a href="{{adv.twitter}}" target="_blank">
+                  <i class="twitter icon large"></i>
+                </a>
+              </button>
+              <!--Instagram +-->
+              <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                      mdbWavesEffect *ngIf="adv.instagram" (click)="clickLinkAdvertisement()">
+                <a href="{{adv.instagram}}" target="_blank">
+                  <i class="instagram icon large"></i>
+                </a>
+              </button>
+              <!--Youtube +-->
+              <button type="button" mdbBtn color="white" rounded="true" class="z-depth-1a waves-light"
+                      mdbWavesEffect *ngIf="adv.youtube" (click)="clickLinkAdvertisement()">
+                <a href="{{adv.youtube}}" target="_blank">
+                  <i class="youtube icon large"></i>
+                </a>
+              </button>
+            </div>
+          </div>
+          <!--Footer-->
+
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+
+  </div>
+</div>

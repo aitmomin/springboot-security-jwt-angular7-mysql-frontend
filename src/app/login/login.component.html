@@ -1,0 +1,72 @@
+<!--<div class="moveToRight">
+  <div class="col-sm-8">
+    <div *ngIf="isLoginFailed" class="alert alert-danger">
+      Erreur d'authentification : {{errorMessage}}
+    </div>
+    <br>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Authentification</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="example-container">
+          <mat-form-field>
+            <input matInput placeholder="Enter your username" [formControl]="username" required>
+            <mat-error *ngIf="username.invalid">{{getErrorMessageLogin()}}</mat-error>
+          </mat-form-field>
+          &lt;!&ndash;<br>&ndash;&gt;
+          <mat-form-field>
+            <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+            <mat-icon matSuffix class="clickable" (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" class="ui primary button" style="margin-left: 10px"><b>Login</b></button>
+      </mat-card-actions>
+      <pre>Nouveau sur SNRT-Music ? <a (click)="register()" class="lien">S'inscrire maintenant »</a></pre>
+    </mat-card>
+  </div>
+</div>-->
+
+<div class="modal-dialog" role="document" >
+  <div class="modal-content" >
+    <div class="modal-header text-center">
+      <h3 class="modal-title w-100 font-weight-bold">SNRT<mat-icon>audiotrack</mat-icon>Music</h3>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <div class="modal-header text-center">
+      <div *ngIf="isLoginFailed" class="alert alert-danger">
+        Erreur d'authentification : {{errorMessage}}
+      </div>
+    </div>
+    <div class="modal-body mx-3">
+      <div class="md-form mb-5">
+        <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+        <i class="user icon prefix grey-text"></i>
+        <input type="text" id="defaultForm-email" [formControl]="username" class="form-control validate"
+               mdbInput>
+        <label data-error="wrong" data-success="right" for="defaultForm-email">Utilisateur</label>
+      </div>
+
+      <div class="md-form mb-4">
+        <!--<i class="fas fa-lock prefix grey-text"></i>-->
+        <i class="lock icon prefix grey-text"></i>
+        <input type="password" [formControl]="password" id="defaultForm-pass" class="form-control validate"
+               mdbInput>
+        <label data-error="wrong" data-success="right" for="defaultForm-pass">Mot de passe</label>
+      </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+      <button mdbBtn type="button" color="default" (click)="login()" color="primary" mdbWavesEffect>S'authentifier</button>
+    </div>
+    <div class="md-form mb-4">
+      <h5 class="modal-title w-100 font-weight-bold" style="padding: 10px;">
+        Nouveau sur SNRT-Music ? <a (click)="register()" class="lien">s'inscrire maintenant »</a>
+      </h5>
+    </div>
+  </div>
+</div>

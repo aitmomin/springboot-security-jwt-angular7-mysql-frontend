@@ -1,0 +1,55 @@
+<div class="ui success message" *ngIf="success">
+  <div class="header">Succès</div>
+  <p>le nouvel album est créé avec succès.</p>
+</div>
+<br>
+<form class="ui form" [formGroup]="form">
+  <h4 class="ui dividing header">Nouvel album <mat-icon>library_music</mat-icon></h4>
+  <br>
+  <div class="seven wide field">
+    <div class="required field">
+      <label>Nom de l'album</label>
+      <input type="text" name="" formControlName="nom" placeholder="album" required>
+      <mat-error *ngIf="form?.get('nom').hasError('required') &&  form?.get('nom').touched"><b>entrer le nom de l'album.</b></mat-error>
+    </div>
+  </div>
+  <div class="fields">
+    <div class="required three wide field">
+      <label>Nombre de chansons</label>
+      <input type="text" name="" formControlName="nombre" maxlength="2" placeholder="nombre" required>
+      <mat-error *ngIf="form.get('nombre').hasError('required')  &&  form?.get('nombre').touched"><b>entrer le nombre.</b></mat-error>
+      <mat-error *ngIf="form.get('nombre').hasError('pattern')"><b>entrer un nombre valide.</b></mat-error>
+    </div>
+    <div class="required three wide field">
+      <div class="required field">
+        <label>Genre de l'album</label>
+        <select class="ui fluid dropdown" formControlName="genre" required>
+          <option value="">Genre</option>
+          <option value="pop">pop</option>
+          <option value="rap">rap</option>
+          <option value="hip-hop">hip-hop</option>
+        </select>
+        <mat-error *ngIf="form?.get('genre').hasError('required')  &&  form?.get('genre').touched"><b>choisir un genre.</b></mat-error>
+      </div>
+    </div>
+  </div>
+  <div class="required seven wide field">
+    <label>Photo de l'album</label>
+    <input type="file" name="" formControlName="photo" (change)="upload($event)">
+    <mat-error *ngIf="form?.get('photo').hasError('required') &&  form?.get('photo').touched"><b>choisir la photo de l'album.</b></mat-error>
+    <mat-error *ngIf="!fileValide"><b>entrer un fichier valid.</b></mat-error>
+  </div>
+  <div class="seven wide field">
+    <label>Description</label>
+    <textarea rows="2" formControlName="description"></textarea>
+  </div>
+  <br>
+  <div *ngIf="form.valid && fileValide; else echec" class="ui button" tabindex="0" (click)="create()">
+    <i class="plus icon"></i>créer l'album
+  </div>
+  <ng-template #echec>
+    <div class="disabled ui button" tabindex="0">
+      <i class="plus icon"></i>créer l'album
+    </div>
+  </ng-template>
+</form>

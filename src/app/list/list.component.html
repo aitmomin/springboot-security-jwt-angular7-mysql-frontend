@@ -1,0 +1,106 @@
+<button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
+        (click)="frame.show()" mdbWavesEffect>Launch Modal</button>
+<br>
+
+<!--<div counto [step]="30" [countTo]="countoTest" [countFrom]="0" [duration]="4" (countoChange)="counto = $event">
+  {{countoTest | currency:'EUR':'symbol':'1.2-2'}}
+</div>-->
+
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content form-elegant">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <h3 class="modal-title w-100 dark-grey-text font-weight-bold my-3" id="myModalLabel">
+          <img class="animated bounce" src="../../assets/images/Dacia logo-v3.png" height="65" width="65" />
+          <strong> title</strong>
+          <!--<br>-->
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()"
+                data-inverted="" data-tooltip="Fermer l'annonce" data-position="right center">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body mx-4">
+        <!--Body-->
+        <div class="md-form mb-5">
+          <!--Sponsorisé.-->
+          <img src="../../assets/images/dacia.jpg" width="100%" height="200px" />
+          <br><br>
+          description
+          <a href="" target="_blank">En savoir plus <i class="angle right icon"></i></a>
+        </div>
+        <p class="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> Nos réseaux sociaux :</p>
+        <div class="row my-3 d-flex justify-content-center">
+          <!--Facebook-->
+          <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                  mdbWavesEffect *ngIf="adv.facebook">
+            <a href="{{adv.facebook}}" target="_blank">
+              <i class="facebook icon large"></i>
+            </a>
+          </button>
+          <!--Twitter-->
+          <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                  mdbWavesEffect *ngIf="adv.twitter">
+            <a href="{{adv.twitter}}" target="_blank">
+              <i class="twitter icon large"></i>
+            </a>
+          </button>
+          <!--Instagram +-->
+          <button type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light"
+                  mdbWavesEffect *ngIf="adv.instagram">
+            <a href="{{adv.instagram}}" target="_blank">
+              <i class="instagram icon large"></i>
+            </a>
+          </button>
+          <!--Youtube +-->
+          <button type="button" mdbBtn color="white" rounded="true" class="z-depth-1a waves-light"
+                  mdbWavesEffect *ngIf="adv.youtube">
+            <a href="{{adv.youtube}}" target="_blank">
+              <i class="youtube icon large"></i>
+            </a>
+          </button>
+        </div>
+      </div>
+      <!--Footer-->
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+
+
+<!--<div style="display: block;" class="chart">
+      <canvas baseChart
+              [datasets]="labelMFL"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>-->
+
+<!--
+<div style="display: block;" class="chart" >
+  <canvas baseChart
+          [datasets]="priceAlbumsData"
+          [labels]="priceAlbumsLabels"
+          [options]="priceAlbumsOptions"
+          [chartType]="priceAlbumsType"
+  ></canvas>
+</div>
+<div style="display: block;" class="chart" *ngIf="">
+  <canvas baseChart
+          [datasets]="priceSinglesData"
+          [labels]="priceSinglesLabels"
+          [options]="priceSinglesOptions"
+          [chartType]="priceSinglesType"
+  ></canvas>
+</div>-->
+
+
+

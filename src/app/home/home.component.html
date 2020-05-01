@@ -1,0 +1,404 @@
+<div class="container">
+  <h2 class="note text-danger text-center" style="padding-right: 10%">Écoutez votre musique sans limites, partout, tout le temps.</h2>
+
+  <section>
+    <div class="container">
+      <div class="row flex-center sm-no-flex">
+        <div class="pull-right sm-no-float col-md-8 ">
+          <br>
+          <!--<div class="ui placeholder" *ngIf="!artists[0]?.imageURL" style="margin-left: 45%; margin-top: 20%">
+            &lt;!&ndash;style="background-color: #fafafa;"&ndash;&gt;
+            <div style="background-color: #eee;">
+              <div class="ui active massive inline loader"></div>
+            </div>
+          </div>-->
+          <ul *ngIf="artists[0]?.imageURL" style="padding-right: 15%">
+            <li>
+              <div class="row" style="padding-left: 10%">
+                <!-- Team member-->
+                <div style="visibility: hidden" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div (click)="goToAlbums(artists[0])"  >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[0]?.id}}" alt="Team Member Picture">
+                      <h4 class="team-name">{{artists[0]?.nickname}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div (click)="goToAlbums(artists[1])"   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[1]?.id}}" alt="Team Member Picture">
+                      <h4 class="team-name">{{artists[1]?.nickname}}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <!-- Team member-->
+                <div style="visibility: hidden">
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member hidden-->
+                <div (click)="goToAlbums(artists[2])" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[2]?.id}}" alt="Team Member Picture">
+                      <h3 class="team-name">{{artists[2]?.nickname}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member hidden-->
+                <div (click)="goToAlbums(artists[3])" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[3]?.id}}" alt="Team Member Picture">
+                      <h3 class="team-name">{{artists[3]?.nickname}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div (click)="goToAlbums(artists[4])"  >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[4]?.id}}" alt="Team Member Picture">
+                      <h4 class="team-name">{{artists[4]?.nickname}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div style="visibility: hidden">
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row" style="padding-left: 10%">
+                <!-- Team member-->
+                <div style="visibility: hidden" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <!--<img src="https://demo.createx.studio/createx/img/team/style-3/02.jpg" alt="Team Member Picture">-->
+                      <!--<h4 class="team-name">Samantha</h4>-->
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div (click)="goToAlbums(artists[5])" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[5]?.id}}" alt="Team Member Picture">
+                      <h4 class="team-name">{{artists[5]?.nickname}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div (click)="goToAlbums(artists[6])" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="http://localhost:8080/artist/image/{{artists[6]?.id}}" alt="Team Member Picture">
+                      <h4 class="team-name">{{artists[6]?.nickname}}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <ul *ngIf="!artists[0]?.imageURL" style="padding-right: 15%">
+            <li>
+              <div class="row" style="padding-left: 10%">
+                <!-- Team member-->
+                <div style="visibility: hidden" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row">
+                <!-- Team member-->
+                <div style="visibility: hidden">
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member hidden-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member hidden-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div style="visibility: hidden">
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="row" style="padding-left: 10%">
+                <!-- Team member-->
+                <div style="visibility: hidden" >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <!--<img src="https://demo.createx.studio/createx/img/team/style-3/02.jpg" alt="Team Member Picture">-->
+                      <!--<h4 class="team-name">Samantha</h4>-->
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+                <!-- Team member-->
+                <div   >
+                  <div class="team-card-style-3 mx-auto">
+                    <div class="team-thumb">
+                      <img src="../../assets/images/userdefault.png" alt="Team Member Picture" class="ui tiny image">
+                      <h4 class="team-name"></h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <!--<ul class="team-members">
+            &lt;!&ndash; single member row starts &ndash;&gt;
+            <li class="clearfix">
+              <div class="member-details">
+                <div>
+                  <div class="member-info">
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[0])">
+                  <img src="http://localhost:8080/artist/image/{{artists[0]?.id}}" alt="{{artists[0]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[0]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[1])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[1]?.id}}" alt="{{artists[1]?.nickname}}" *ngIf="artists[1]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[1]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+            &lt;!&ndash; single member row starts &ndash;&gt;
+            <li class="clearfix">
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[2])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[2]?.id}}" alt="{{artists[2]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[2]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[3])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[3]?.id}}" alt="{{artists[3]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[3]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[4])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[4]?.id}}" alt="{{artists[4]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[4]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+            &lt;!&ndash; single member row starts &ndash;&gt;
+            <li class="clearfix">
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[5])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[5]?.id}}" alt="{{artists[5]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[5]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div (click)="goToAlbums(artists[6])" >
+                  <img src="http://localhost:8080/artist/image/{{artists[6]?.id}}" alt="{{artists[6]?.nickname}}" *ngIf="artists[0]?.id">
+                  <div class="member-info">
+                    <h5>{{artists[6]?.nickname}}</h5>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="member-details animated zoomIn">
+                <div>
+                  <div class="member-info">
+                  </div>
+                </div>
+              </div>
+            </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+          </ul>-->
+          <!-- /end team-photos -->
+          <br><br>
+          <!--<mat-divider></mat-divider>-->
+        </div><!-- /end col-md-8 -->
+
+        <div class="pull-left col-md-4 sm-text-center">
+          <div class="team-overview">
+            <h2>SNRT MUSIC ?</h2>
+            <a href="#">Écoutez ce que vous aimez</a>
+            <b>
+              <p> Cherchez vos artistes préférés, vos albums et vos morceaux en WiFi, puis retrouvez-les
+                tous au même endroit pour les écouter à tout moment. <br>
+                Des styles, des univers : Lancez-vous sur SNRT MUSIC et explorez tous les styles musicaux.
+              </p>
+            </b>
+          </div>
+        </div><!-- /end col-md-4 -->
+      </div><!-- /end row -->
+    </div><!-- /end container -->
+  </section>
+  <section >
+    <br><br>
+    <div class="row">
+      <div>
+        <img src="../../assets/images/acc.PNG" height="396" width="411" class="wow slideInLeft" data-wow-delay="0.6s"/>
+        <br><br>
+        <!--<mat-divider></mat-divider>-->
+      </div>
+      <div class="pull-left col-md-6 sm-text-center" style="padding-top: 70px; padding-left: 50px">
+        <div class="team-overview">
+          <h2>LIBÉREZ-VOUS AVEC DES MILLIONS DE CHANSONS</h2>
+          <b>
+            <p>Un océan de chansons marocaines en un seul et même endroit.</p>
+          </b>
+        </div>
+      </div>
+    </div>
+  </section>
+  <h3 style="padding-top: 10%; padding-left: 40%; padding-bottom: 3% ">ÇA SONNE BIEN</h3>
+  <section class="text-center" style="padding-left: 20%">
+    <div class="row">
+      <div class="pull-left col-md-8 sm-text-center">
+        <div class="team-overview">
+          <h2>Musique exclusive</h2>
+          <b>
+            <p>Soyez le premier à écouter les chansons de vos artistes préférés exclusivement sur SNRT MUSIC.</p>
+          </b>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <img src="../../assets/images/music2.png" height="100" width="100" class="wow fadeInDown" data-wow-delay="0.6s"/>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 50px">
+      <div class="col-sm-2">
+        <img src="../../assets/images/music3.png" height="100" width="100" class="wow fadeInDown" data-wow-delay="0.6s"/></div>
+      <div class="pull-left col-md-8 sm-text-center">
+        <div class="team-overview">
+          <h2>Audio haute définition</h2>
+          <b>
+            <p>Bénéficiez de la musique en haute définition.</p>
+          </b>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding-top: 50px">
+      <div class="pull-left col-md-8 sm-text-center">
+        <div class="team-overview">
+          <h2>Importer votre musique</h2>
+          <b>
+            <p>Importez les chansons que vous avez réalisé sur votre compte. </p>
+          </b>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <img src="../../assets/images/music4.png" height="100" width="100" class="wow fadeInDown" data-wow-delay="0.6s"/>
+      </div>
+    </div>
+  </section>
+  <section style="padding-top: 20%"></section>
+</div>

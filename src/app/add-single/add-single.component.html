@@ -1,0 +1,38 @@
+<div class="ui success message" *ngIf="success">
+  <div class="header">Succès</div>
+  <p>le nouveau single est bien ajouté.</p>
+</div>
+<br>
+<form class="ui form" [formGroup]="form">
+  <h4 class="ui dividing header">Nouveau single <mat-icon>music_note</mat-icon></h4>
+  <br>
+  <div class="required seven wide field">
+    <div class="required field">
+      <label>Titre de single</label>
+      <input type="text" name="" formControlName="titre" placeholder="titre" required>
+      <mat-error *ngIf="form?.get('titre').hasError('required') &&  form?.get('titre').touched"><b>entrer le titre de single.</b></mat-error>
+    </div>
+  </div>
+  <div class="required seven wide field">
+    <label>Photo de single</label>
+    <input type="file" name="" formControlName="photo" (change)="upload2($event)">
+    <mat-error *ngIf="form?.get('photo').hasError('required') &&  form?.get('photo').touched"><b>choisir la photo de single.</b></mat-error>
+    <mat-error *ngIf="!fileValide2"><b>entrer un fichier valid.</b></mat-error>
+  </div>
+  <div class="required seven wide field">
+    <label>Sélectionner le single</label>
+    <input type="file" formControlName="single" (change)="upload($event)">
+    <audio #dom_audio (canplaythrough)="setDuration($event)" id="audio"></audio>
+    <mat-error *ngIf="form?.get('single').hasError('required') &&  form?.get('single').touched">choisir un single.</mat-error>
+    <mat-error *ngIf="!fileValide"><b>choisir un fichier valid.</b></mat-error>
+  </div>
+  <br>
+  <div *ngIf="form.valid && fileValide && fileValide2; else echec" class="ui button" tabindex="0" (click)="create()">
+    <i class="plus icon"></i>ajouter le single
+  </div>
+  <ng-template #echec>
+    <div class="disabled ui button" tabindex="0" >
+      <i class="plus icon"></i>ajouter le single
+    </div>
+  </ng-template>
+</form>

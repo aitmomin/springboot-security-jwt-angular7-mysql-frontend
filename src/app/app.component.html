@@ -1,0 +1,121 @@
+<mat-toolbar role="heading" class="mat-elevation-z3">
+  <div class="col-md-2 col-xs-1 clickcursor">
+    <span>
+      <!--&nbsp; <a (click)="goHome()"><span class="header-text"> SNRT<mat-icon>audiotrack</mat-icon>Music </span></a>-->
+      <a (click)="goHome()"><span class="header-text"> SNRT <img src="../assets/images/icon.PNG" height="30"
+                                                                      width="30"/> Music</span></a>
+    </span>
+  </div>
+  <div class="col-md-5 col-xs-11">
+    <div class="search-container">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input type="text" placeholder="Chercher un artiste" class="search-input" #searchBox>
+      <mat-list class="mat-elevation-z33 search-result" *ngIf="searchResults.length>0 && hideResult !== true">
+        <mat-list-item class="search-result-item" role="listitem" *ngFor="let artist of searchResults">
+          <div class="text">
+            <img class="ui avatar image" src="http://localhost:8080/artist/image/{{artist.id}}">
+            <a (click)="onResultClick()" [routerLink]="[artist.id, artist.nickname, 'albums']" >
+              {{artist.nickname}}
+            </a>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <!--<mat-list *ngIf="searchInput">
+        <mat-list-item >
+          <div class="ui segment">
+            <div class="ui active loader"></div>
+            <p></p>
+          </div>
+        </mat-list-item>
+      </mat-list>-->
+      <mat-list class="mat-elevation-z33 search-result" *ngIf="searchResults.length===0 && searchInput && !hideResult">
+        <mat-list-item class="search-result-item2" role="listitem" *ngIf="!hideResult">
+          Aucun artiste trouvé.
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+
+  <!-- home -->
+  <div class="col-md-2 col-xs-1 moveright1" *ngIf="!authority">
+    <span style="border-right-style: groove;border-width: 1px">
+      <button mat-button routerLink="home"><i class="home icon plus-icon"></i>Acceuil</button>
+    </span>
+    <span>
+      <button mat-button routerLink="auth/login"><i class="sign-in icon plus-icon"></i>Connexion</button>
+    </span>
+    <!--<span>-->
+      <!--<button mat-stroked-button color="warn" (click)="goLogin()">-->
+        <!--<mat-icon>input</mat-icon> <b> login</b>-->
+      <!--</button>-->
+    <!--</span>-->
+  </div>
+
+  <!-- USER -->
+  <div class="col-md-3 col-xs-1 moveright1" *ngIf="authority === 'user'">
+    <span style="border-right-style: groove;border-width: 1px">
+      <button mat-button routerLink="home"><i class="home icon plus-icon"></i>Accueil</button>
+    </span>
+    <span>
+      <button mat-button [matMenuTriggerFor]="profile">
+        <img  *ngIf="connected?.imageURL" class="ui avatar image" src="http://localhost:8080/artist/image/{{connected?.id}}">
+        <img  *ngIf="!connected?.imageURL" class="ui avatar image" src="../assets/images/userdefault.jpg">
+        <i class="sort down icon plus-icon"></i>
+      </button>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item routerLink="profile"><i class="user circle icon plus-icon"></i>profile</button>
+        <button mat-menu-item (click)="goLogout()" ><i class="sign-out icon plus-icon"></i>Déconnexion</button>
+      </mat-menu>
+    </span>
+  </div>
+
+  <!-- ARTIST -->
+  <div class="col-md-3 col-xs-1 moveright2" *ngIf="authority === 'artist'">
+    <span style="border-right-style: groove;border-width: 1px">
+      <button mat-button routerLink="home"><i class="home icon plus-icon"></i>Accueil</button>
+    </span>
+    <span style="border-right-style: groove;border-width: 1px">
+      <button mat-button [matMenuTriggerFor]="nouveau"><i class="plus circle icon plus-icon"></i>Nouveau</button>
+      <mat-menu #nouveau="matMenu">
+        <button mat-menu-item routerLink="new/album"><mat-icon>library_music</mat-icon>créer un album</button>
+        <button mat-menu-item routerLink="new/track"><mat-icon>album</mat-icon>ajouter une chanson</button>
+        <button mat-menu-item routerLink="new/single"><mat-icon>audiotrack</mat-icon>ajouter un single</button>
+      </mat-menu>
+    </span>
+    <span style="border-right-style: groove;border-width: 1px">
+      <button mat-button routerLink="list/dashboard"><i class="dashboard icon plus-icon"></i>Statistiques</button>
+    </span>
+    <span>
+      <button mat-button [matMenuTriggerFor]="profile">
+        <img  *ngIf="connected" class="ui avatar image" src="http://localhost:8080/artist/image/{{connected?.id}}">
+        <i class="sort down icon plus-icon"></i>
+      </button>
+      <mat-menu #profile="matMenu">
+        <button mat-menu-item routerLink="profile"><i class="user circle icon plus-icon"></i>profile</button>
+        <button mat-menu-item (click)="goLogout()" ><i class="sign-out icon plus-icon"></i>Déconnexion</button>
+      </mat-menu>
+    </span>
+  </div>
+
+</mat-toolbar>
+
+<!--style="background: #fafafa;"-->
+<div class="container" style="padding-bottom: 50px">
+  <div class="body_container" style="margin-top: 90px;">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<mat-toolbar role="footer" class="mat-elevation-z2 music-control">
+  <app-player></app-player>
+  <div style="padding-left: 52%">
+    <div style="">
+      <a ><i class="facebook icon"></i></a>
+      <a ><i class="twitter icon"></i></a>
+      <a ><i class="instagram icon"></i></a>
+      <a ><i class="youtube icon"></i></a>
+      <br>
+      <span style="font-size: 12px"><i class="copyright outline icon"></i>{{currentDate | date:'yyyy'}} SNRT Music</span>
+    </div>
+  </div>
+</mat-toolbar>

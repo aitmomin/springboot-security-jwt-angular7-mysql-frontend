@@ -1,0 +1,140 @@
+<div class="alert alert-success" *ngIf="isSignedUp; else signupForm">
+  Votre inscription est faite avec succès. <a (click)="goLogin()"><b>S'authentifier !</b></a>
+</div>
+
+<ng-template #signupForm>
+  <div class="moveToRight">
+    <div *ngIf="isSignUpFailed" class="col-sm-8 alert alert-danger">
+      Echèc !<br/>{{errorMessage}}
+    </div>
+    <br>
+    <form [formGroup]="form">
+      <!--<h4 mat-raised-button id="toggle-linear">Inscription sur SNRT Music</h4>-->
+      <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear" style="cursor: default">
+      Inscription sur SNRT Music
+      </button>
+      <!--background: #fafafa;-->
+      <mat-vertical-stepper [linear]="true" style="background: #eee;" #stepper>
+        <mat-step [stepControl]="etape1" [formGroup]="etape1">
+          <ng-template matStepLabel>Informations sur l'utilisateur</ng-template>
+          <div class="row">
+            <div class="col-sm-4">
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Nom" formControlName="lastname" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Prénom" formControlName="firstname" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Date de naissance" formControlName="birthdate" type="date" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Adresse" formControlName="address" required>
+                </mat-form-field>
+              </div>
+              <div>
+                <!--<mat-form-field>-->
+                  <!--<input matInput placeholder="Ville" formControlName="city" required>-->
+                <!--</mat-form-field>-->
+                <mat-form-field>
+                  <mat-select placeholder="Ville" formControlName="city" required="">
+                    <mat-option value="kenitra">kenitra</mat-option>
+                    <mat-option value="casablanca">casablanca</mat-option>
+                    <mat-option value="rabat">rabat</mat-option>
+                    <mat-option value="safi">safi</mat-option>
+                    <mat-option value="tanger">tanger</mat-option>
+                    <mat-option value="agadir">agadir</mat-option>
+                    <mat-option value="marrakech">marrakech</mat-option>
+                    <mat-option value="salé">salé</mat-option>
+                    <mat-option value="salé">settat</mat-option>
+                    <mat-option value="tetouane">tetouane</mat-option>
+                    <mat-option value="khouribga">khouribga</mat-option>
+                    <mat-option value="beni mellal">beni mellal</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <br>
+              <div class="row">
+                <pre>Genre : </pre>
+                <mat-radio-group formControlName="gender">
+                  <mat-radio-button value="homme">H</mat-radio-button>
+                  <mat-radio-button value="femme">F</mat-radio-button>
+                </mat-radio-group>
+                <!--p-radioButton name="genre" [(ngModel)]="genre" value="f" label="F" ></p-radioButton>
+                <p-radioButton name="genre" [(ngModel)]="genre" value="h" label="H" class="spaceRadio"></p-radioButton-->
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperNext >suivante</button>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="etape2" [formGroup]="etape2">
+          <ng-template matStepLabel>Identifiant et mot de passe</ng-template>
+          <div class="row">
+            <div class="col-sm-4">
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Email" formControlName="email" required>
+                  <mat-error *ngIf="etape2.get('email').invalid">{{getErrorEmail()}}</mat-error>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Username" formControlName="username" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div>
+                <mat-form-field>
+                  <input matInput placeholder="Password" type="password" formControlName="password" required>
+                  <!--<mat-error *ngIf="etape2.get('password').touched && !etape2.get('confirmpassword').hasError('required') && etape2.get('password').hasError('notEqual')">-->
+                    <!--confirmer le mot de passe-->
+                  <!--</mat-error>-->
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <input matInput appConfirmPassword="password" placeholder="Confirm Password" type="password" formControlName="confirmpassword" required>
+                  <mat-error *ngIf="etape2.get('confirmpassword').touched && !etape2.get('confirmpassword').hasError('required') && etape2.get('confirmpassword').hasError('notEqual')">
+                    confirmer le mot de passe
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button mat-button matStepperPrevious >retour</button>&nbsp;
+            <button mat-button matStepperNext >suivante</button>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="etape3">
+          <ng-template matStepLabel>Photo de profile</ng-template>
+          <div>
+            <pre>photo de profile :</pre>
+            <input class="btn btn-light" type="file" (change)="upload($event)">
+          </div>
+          <!--<br>-->
+          <div>
+            <button mat-button matStepperPrevious >retour</button>&nbsp;
+            <button mat-button (click)="stepper.reset()" >réinitialiser</button>
+          </div>
+          <!--<br>-->
+          <div>
+            <button [disabled]="!validFile" (click)="inscrire()" class="ui positive button"><b>S'inscrire</b></button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+    </form>
+  </div>
+</ng-template>

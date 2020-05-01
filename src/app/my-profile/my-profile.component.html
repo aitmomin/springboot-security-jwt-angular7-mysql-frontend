@@ -1,0 +1,461 @@
+<br>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <img class="img" src="http://localhost:8080/artist/image/{{user?.id}}" *ngIf="user?.imageURL" />
+            <img src="../../assets/images/userdefault.jpg" *ngIf="!user?.imageURL"/>
+          </div>
+          <div class="card-body">
+
+            <label class="card-category" *ngIf="user?.gender" for="file" style="cursor: pointer; padding-right: 10px">
+              <u>modifier la photo de profile</u>
+            </label>
+            <i class="circular upload icon link" (click)="upload()" *ngIf="selectedFiles"
+               data-variation="mini" data-inverted=""
+               mdbTooltip="importer la photo" placement="right" mdbWavesEffect></i>
+            <!--data-content="importer l'image" data-position="right center"-->
+
+
+            <br>
+            <mat-error *ngIf="!fileValide"><b>entrer un fichier valid.</b></mat-error>
+            <div *ngIf="currentFileUpload" class="progress">
+              <div class="progress-bar progress-bar-success progress-bar-striped"
+                   role="progressbar"
+                   attr.aria-valuenow="{{progress.percentage}}"
+                   aria-valuemin="0"
+                   aria-valuemax="100"
+                   [ngStyle]="{width:progress.percentage+'%'}">
+                {{progress.percentage}}%</div>
+            </div>
+            <input type="file" (change)="selectFile($event)" id="file" style="visibility: hidden;">
+            <div class="ui placeholder" *ngIf="!user?.gender">
+              <div class="header">
+                <div class="line"></div>
+                <div class="line"></div>
+              </div>
+            </div>
+            <h4 class="card-title">
+              <span *ngIf="authority === 'artist'">{{user.nickname}}</span>
+              <span *ngIf="authority === 'user'">{{user.lastname}} {{ user.firstname}}</span>
+            </h4>
+            <div class="ui placeholder" *ngIf="!user?.gender">
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+              <div class="line"></div>
+            </div>
+            <p *ngIf="user?.gender">
+              <span *ngIf="user.gender === 'homme'">
+                <i class="male icon"></i>{{user.gender}}<br>
+              </span>
+              <span *ngIf="user.gender === 'femme'">
+                <i class="female icon"></i>{{user.gender}}<br>
+              </span>
+              <span>
+                <i class="calendar alternate outline icon"></i>{{user.birthdate}}<br>
+              </span>
+              <span>
+                <i class="address card outline icon"></i>{{user.address}}<br>
+              </span>
+              <span>
+                <i class="location arrow icon"></i>{{user.city}}<br>
+              </span>
+            </p>
+            <!--<a href="#" class="btn btn-danger btn-round" *ngIf="authority !== 'artist'" >Passer vers artiste.</a>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9" style="padding-bottom: 20px">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-danger">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
+                      <i class="material-icons">edit</i> Modifier le profile
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="authority === 'artist'">
+                    <a mat-button class="nav-link" href="#myAlbums" data-toggle="tab">
+                      <i class="material-icons">library_music</i> Mes albums
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="authority === 'artist'">
+                    <a mat-button class="nav-link" href="#mySingles" data-toggle="tab">
+                      <i class="material-icons">music_note</i> Mes singles
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="authority === 'user'">
+                    <a mat-button class="nav-link" href="#list" data-toggle="tab">
+                      <i class="material-icons">favorite_border</i> playlist
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="authority === 'user'">
+                    <a mat-button class="nav-link" href="#upgrade" data-toggle="tab">
+                      <i class="material-icons">label_important</i> Passer vers Artiste
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="profile">
+                <br>
+                <div class="ui success message" *ngIf="updated">
+                  <div class="header">Succès</div>
+                  <p>Votre profile est bien modifié.</p>
+                </div>
+                <br>
+                <form [formGroup]="form">
+                  <!--<h4 mat-raised-button id="toggle-linear">Inscription sur SNRT Music</h4>-->
+                  <!--background: #fafafa;-->
+                  <mat-horizontal-stepper [linear]="true" #stepper>
+                    <mat-step [stepControl]="etape1" [formGroup]="etape1">
+                      <ng-template matStepLabel>Informations sur l'utilisateur</ng-template>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Nom" formControlName="lastname" required>
+                            </mat-form-field>
+                          </div>
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Prénom" formControlName="firstname" required>
+                            </mat-form-field>
+                          </div>
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Date de naissance" formControlName="birthdate" type="date" required>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Adresse" formControlName="address" required>
+                            </mat-form-field>
+                          </div>
+                          <div>
+                            <!--<mat-form-field>-->
+                            <!--<input matInput placeholder="Ville" formControlName="city" required>-->
+                            <!--</mat-form-field>-->
+                            <mat-form-field>
+                              <mat-select formControlName="city" required="">
+                                <mat-option value="kenitra">kenitra</mat-option>
+                                <mat-option value="casablanca">casablanca</mat-option>
+                                <mat-option value="rabat">rabat</mat-option>
+                                <mat-option value="safi">safi</mat-option>
+                                <mat-option value="tanger">tanger</mat-option>
+                                <mat-option value="agadir">agadir</mat-option>
+                                <mat-option value="marrakech">marrakech</mat-option>
+                                <mat-option value="salé">salé</mat-option>
+                                <mat-option value="settat">settat</mat-option>
+                                <mat-option value="tetouane">tetouane</mat-option>
+                                <mat-option value="khouribga">khouribga</mat-option>
+                                <mat-option value="beni mellal">beni mellal</mat-option>
+                                <mat-option value="taroudante">taroudante</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <br>
+                          <div class="row" style="padding-left: 15px;">
+                            <pre>Genre : </pre>
+                            <mat-radio-group formControlName="gender" value="{{user.gender}}">
+                              <mat-radio-button value="homme">H</mat-radio-button>
+                              <mat-radio-button value="femme">F</mat-radio-button>
+                            </mat-radio-group>
+                            <!--p-radioButton name="genre" [(ngModel)]="genre" value="f" label="F" ></p-radioButton>
+                            <p-radioButton name="genre" [(ngModel)]="genre" value="h" label="H" class="spaceRadio"></p-radioButton-->
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <button mat-button matStepperNext >suivante</button>
+                      </div>
+                    </mat-step>
+                    <mat-step [stepControl]="etape2" [formGroup]="etape2">
+                      <ng-template matStepLabel>Identifiant et mot de passe</ng-template>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Email" formControlName="email" required>
+                              <mat-error *ngIf="etape2.get('email').invalid">{{getErrorEmail()}}</mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Username" formControlName="username" required>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div>
+                            <mat-form-field>
+                              <input matInput placeholder="Password" type="password" formControlName="password" required>
+                              <!--<mat-error *ngIf="etape2.get('password').touched && !etape2.get('confirmpassword').hasError('required') && etape2.get('password').hasError('notEqual')">-->
+                              <!--confirmer le mot de passe-->
+                              <!--</mat-error>-->
+                            </mat-form-field>
+                          </div>
+                          <div>
+                            <mat-form-field>
+                              <input matInput appConfirmPassword="password" placeholder="Confirm Password" type="password" formControlName="confirmpassword" required>
+                              <mat-error *ngIf="etape2.get('confirmpassword').touched && !etape2.get('confirmpassword').hasError('required') && etape2.get('confirmpassword').hasError('notEqual')">
+                                confirmer le mot de passe
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <button mat-button matStepperPrevious >retour</button>&nbsp;
+                      </div>
+                      <br>
+                      <div>
+                        <button [disabled]="form.invalid" (click)="modifier()" class="ui primary button"><b>Modifier le profile</b></button>
+                      </div>
+                    </mat-step>
+                  </mat-horizontal-stepper>
+                </form>
+                <!--<div class="card">-->
+                  <!--<div class="card-header card-header-danger">-->
+                    <!--<h4 class="card-title">Edit Profile</h4>-->
+                    <!--<p class="card-category">Complete your profile</p>-->
+                  <!--</div>-->
+                  <!--<div class="card-body">-->
+                    <!--<form>-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-5">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Company (disabled)" disabled>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Username">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Email address" type="email">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Fist Name" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Last Name" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Adress" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="City" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Country" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<input matInput placeholder="Postal Code" type="text">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                          <!--<label>About Me</label>-->
+                          <!--<mat-form-field class="example-full-width">-->
+                            <!--<textarea matInput placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."></textarea>-->
+                          <!--</mat-form-field>-->
+                          <!--&lt;!&ndash; <div class="form-group">-->
+
+                              <!--<div class="form-group">-->
+                                  <!--<label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>-->
+                                  <!--<textarea class="form-control" rows="5"></textarea>-->
+                              <!--</div>-->
+                          <!--</div> &ndash;&gt;-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>-->
+                      <!--<div class="clearfix"></div>-->
+                    <!--</form>-->
+                  <!--</div>-->
+                <!--</div>-->
+              </div>
+              <div class="tab-pane" id="myAlbums" >
+                <br>
+                <div class="row" *ngIf="(albums | async)?.length > 0 && showAlbums">
+                  <!--"col-lg-2 col-md-4 col-sm-6"-->
+                  <div class="col-md-3" *ngFor="let album of albums | async" style="padding-bottom: 20px">
+                    <mat-card class="album-card" matRipple (click)="myTracks(album)" style="cursor: pointer;">
+                      <!--(click)="goToTracks(album)"-->
+                      <mat-card-content>
+                        <img src="http://localhost:8080/album/image/{{album.id}}"  width="100%" height="100" class="responsive-image">
+                      </mat-card-content>
+                      <mat-card-header class="album-header">
+                        <mat-card-title class="album-title" style="color: black;">
+                          <span>
+                            <b>{{album.albumName}}</b>
+                          </span>
+                        </mat-card-title>
+                        <mat-card-subtitle>
+                          <b>
+                            <p style="font-size: 10px; float: left;">
+                              <i class="genderless icon"></i>{{album.gender}}<br>
+                              <i class="music icon"></i>{{album.trackCount}} chansons<br>
+                              <i class="eye icon"></i>{{album.views}} vues <br>
+                              <i class="heart icon"></i>{{album.rating}} j'aime
+                            </p>
+                          </b>
+                        </mat-card-subtitle>
+                        <!--<script> $(".rating").rating();</script>-->
+                        <!--<div class="ui rating" data-max-rating="5"></div>-->
+                      </mat-card-header>
+                    </mat-card>
+                  </div>
+                </div>
+                <div *ngIf="(albums | async)?.length === 0 && showAlbums">
+                  No albums.
+                </div>
+
+                <div *ngIf="showTracks">
+                  <div *ngIf="dataSource.data.length > 0; else noTracks">
+                    <span mat-button (click)="backToAlbums()" style="cursor: pointer;">
+                      <i class="undo icon"></i><b><u>Retour</u></b>
+                    </span>
+                    <br><br>
+                    <div class="row" style="padding-left: 10px">
+                      <img src="Card" src="http://localhost:8080/album/image/{{selectedAlbum.id}}" class="img-thumbnail" style="width:120px;height:130px;">
+                      <div style="padding-left: 10px; padding-top: 8px">
+                        <p style="font-size: 10px">
+                          <strong style="font-size: 20px">{{selectedAlbum.albumName}}</strong><br><br>
+                          {{selectedAlbum.gender}} <br>
+                          {{selectedAlbum.trackCount}} chansons <br>
+                          Ajouté le {{selectedAlbum.releaseDate | date: 'd MMM yyyy'}}<br>
+                          {{selectedAlbum.views}} vues <br>
+                          {{selectedAlbum.rating}} j'aime
+                        </p>
+                      </div>
+                    </div>
+                    <br><br>
+                    <i class="angle double right icon"></i><b>la liste des chansons :</b><br>
+                    <mat-form-field>
+                      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+
+                    <div class="mat-elevation-z8">
+                      <table mat-table [dataSource]="dataSource" matSort style="width: 100%">
+
+                        <!-- N° Column -->
+                        <ng-container matColumnDef="trackNumber">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+                          <td mat-cell *matCellDef="let row"> {{row.trackNumber }} </td>
+                        </ng-container>
+
+                        <!-- track title Column -->
+                        <ng-container matColumnDef="trackTitle">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> titre de chanson </th>
+                          <td mat-cell *matCellDef="let row"> {{row.trackTitle}} </td>
+                        </ng-container>
+
+                        <!-- time Column -->
+                        <ng-container matColumnDef="time">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> durée </th>
+                          <td mat-cell *matCellDef="let row"> {{row.time}} </td>
+                        </ng-container>
+
+                        <!-- date Column -->
+                        <ng-container matColumnDef="releaseDate">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> date de sortie </th>
+                          <td mat-cell *matCellDef="let row"> {{row.releaseDate | date: 'dd-MM-yyyy'}} </td>
+                        </ng-container>
+
+                        <!-- views Column -->
+                        <ng-container matColumnDef="views">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> <mat-icon>visibility</mat-icon> </th>
+                          <td mat-cell *matCellDef="let row"> {{row.views}} vues</td>
+                        </ng-container>
+
+                        <!-- rating Column -->
+                        <ng-container matColumnDef="rating">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> j'aime </th>
+                          <td mat-cell *matCellDef="let row"> <i class="heart outline icon large"></i> {{row.rating}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;" (click)="playTrackT(row)" style="cursor: pointer;">
+                        </tr>
+                      </table>
+
+                      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+                    </div>
+                  </div>
+                  <ng-template #noTracks>No Chansons.</ng-template>
+                </div>
+              </div>
+              <div class="tab-pane" id="mySingles">
+                <app-mysingles></app-mysingles>
+              </div>
+              <div class="tab-pane" id="list" >
+                <app-playlist></app-playlist>
+              </div>
+              <div class="tab-pane" id="upgrade" >
+                <br>
+                <form class="ui form" [formGroup]="form2">
+                  <div class="seven wide field">
+                    <div class="required field">
+                      <label>Entrer votre Surnom (un pseudo) :</label>
+                      <input type="text" name="" formControlName="nickname" placeholder="Pseudo" required>
+                      <mat-error *ngIf="form2?.get('nickname').hasError('required') &&  form2?.get('nickname').touched">entrer un pseudo.</mat-error>
+                    </div>
+                  </div>
+                  <br>
+                  <div *ngIf="form2.valid; else echec" class="ui button" tabindex="0" (click)="upgrade()">
+                    Passer vers Artiste <i class="angle double right icon"></i>
+                  </div>
+                  <ng-template #echec>
+                    <div class="disabled ui button" tabindex="0" >
+                      Passer vers Artiste <i class="angle double right icon"></i>
+                    </div>
+                  </ng-template>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br><br><br>

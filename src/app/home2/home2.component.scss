@@ -1,0 +1,255 @@
+$gray-darker:           #343b43 !default;
+$gray-dark:            	#404040 !default;
+$gray:                  #8c8c8c !default;
+$gray-light:            #e7e7e7 !default;
+$gray-lighter:          #f5f5f5 !default;
+$white:                 #ffffff !default;
+$black:                 #000000 !default;
+
+// Brand colors
+$primary:               #ac32e4 !default;
+$accent:                #e833b0 !default;
+$info:		              #5695fe !default;
+$success:               #33cb81 !default;
+$warning:               #fc8c3a !default;
+$danger:                #ff5252 !default;
+
+//== Grid Vertical Step
+// -------------------------------------------------------
+
+$grid-vertical-step:     24px !default;
+$font-size-base:          16px !default;
+$font-size-lead:          floor(($font-size-base * 1.5)) !default; // ~24px
+$font-size-xl:            floor(($font-size-base * 1.125)) !default; // ~18px
+$font-size-lg:            $font-size-base !default; // ~16px
+$font-size-md:            floor(($font-size-base * .875)) !default; // ~14px
+$font-size-sm: 				    floor(($font-size-base * .75)) !default; // ~12px
+$font-size-xs:         		floor(($font-size-base * .625)) !default; // ~10px
+
+$font-size-button-md:         $font-size-sm !default;
+$navi-link-font-size:         $font-size-sm !default;
+
+//== Box Shadow
+// -------------------------------------------------------
+
+$box-shadow-base:              0 22px 36px -12px rgba($gray-dark, .13) !default;
+$box-shadow-base-pressed:      0 10px 24px -10px rgba($gray-dark, .22) !default;
+$box-shadow-base-inset:        inset 0 20px 30px -12px rgba($gray-dark, .12) !default;
+$box-shadow-card:              0 12px 20px 1px rgba($gray-dark, .09) !default;
+$box-shadow-dropdown:          0 8px 20px -4px rgba($gray-dark, .2) !default;
+$box-shadow-autocomplete:      0 6px 20px 0 rgba($gray-dark, .2) !default;
+$box-shadow-input:             0 9px 24px -4px rgba($gray-dark, .16) !default;
+$box-shadow-offcanvas:         22px 0 36px -12px rgba($gray-dark, .12) !default;
+$box-shadow-offcanvas-reverse: -22px 0 36px -12px rgba($gray-dark, .12) !default;
+$box-shadow-pagination-link:   0 12px 20px 1px rgba($gray-dark, .11) !default;
+$box-shadow-social-btn:        0 12px 20px 1px rgba($gray-dark, .11) !default;
+$box-shadow-shop-btn:          0 12px 20px 1px rgba($gray-dark, .11) !default;
+$box-shadow-header-btns:       0 12px 20px 1px rgba($gray-dark, .13) !default;
+$box-shadow-gallery-hover:     0 8px 24px 0 rgba($black, .26) !default;
+$box-shadow-gallery-indicator: 0 10px 15px 0 rgba($black, .2) !default;
+$box-shadow-carousel-navs:     0 10px 15px 0 rgba($black, .12) !default;
+$box-shadow-contact-icon:      0 8px 20px 0 rgba($black, .11) !default;
+$box-shadow-author-avatar:     0 8px 20px 0 rgba($black, .15) !default;
+$box-shadow-progress:          0 8px 16px 0 rgba($black, .15) !default;
+$box-shadow-post-format:       0 9px 18px 0 rgba($gray-dark, .14) !default;
+$box-shadow-video-btn:         0 9px 28px 0 rgba($gray-dark, .13) !default;
+$box-shadow-video-btn-hover:   0 9px 28px 0 rgba($primary, .2) !default;
+$box-shadow-fullscreen-close:  0 10px 18px 0 rgba($black, .11) !default;
+
+// Borders
+$border-color:          $gray-light !default;
+$border-light-color:    rgba($white, .14) !default;
+
+// Theme gradient
+$gradient-color-1:      $primary !default;
+$gradient-color-2:      $accent !default;
+
+
+
+
+//
+// Mixins
+// --------------------------------------------------
+
+// Font smoothing
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Unstyled list
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+// Gradient background
+@mixin gradient-background($gradient-from: $gradient-color-1, $gradient-to: $gradient-color-2) {
+  background: $gradient-from !important;
+  background: linear-gradient(to right, $gradient-from 0%, $gradient-from 20%, $gradient-to 100%) !important;
+}
+
+// Vertical gradient background
+@mixin gradient-background-vertical($gradient-from: $gradient-color-1, $gradient-to: $gradient-color-2) {
+  background: $gradient-from !important;
+  background: linear-gradient(to bottom, $gradient-from 0%, $gradient-from 20%, $gradient-to 100%) !important;
+}
+
+// Placeholder text
+@mixin placeholder($color: $gray) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder {
+    color: $color;
+  } // Internet Explorer 10+
+  &::-webkit-input-placeholder  {
+    color: $color;
+  } // Safari and Chrome
+}
+
+// Appearance
+@mixin appearance($value) {
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  appearance: $value;
+}
+
+
+// Alert Variants
+@mixin alert-variant($color, $bg-color, $border-color) {
+  background-color: $bg-color;
+  color: $color;
+  &::before { border-color: $border-color; }
+  > *,
+  h1, h2, h3, h4, h5, h6, p, ul, ol, a {
+    &:not(.text-white),
+    &:not(.text-light) { color: $color; }
+  }
+  .alert-close { color: $color; }
+}
+
+// List Group Variants
+@mixin list-group-variant($color, $bg-color, $border-color) {
+  border-color: $border-color !important;
+  background-color: $bg-color;
+  color: $color !important;
+  > *,
+  h1, h2, h3, h4, h5, h6, p, ul, ol, a { color: $color !important; }
+}
+
+
+
+
+
+
+// Gradient background
+.bg-gradient { @include gradient-background($gradient-color-1, $gradient-color-2);}
+.bg-gradient-vertical { @include gradient-background-vertical($gradient-color-1, $gradient-color-2);}
+
+
+
+//
+// Team
+// --------------------------------------------------
+
+// General for all styles
+.team-card-style-3 {
+  position: relative;
+  //max-width: 360px;
+  max-width: 150px;
+  max-height: 150px;
+  text-align: center;
+  background-color: white;
+}
+.team-contact-link {
+  display: block;
+  margin-top: floor($grid-vertical-step / 5);
+  transition: all .25s;
+  font: {
+    size: $font-size-sm;
+    weight: 700;
+  }
+  text-decoration: none;
+  > i {
+    display: inline-block;
+    font-size: 1.1em;
+    vertical-align: middle;
+  }
+}
+.team-card-style-3 {
+  .team-position {
+    display: block;
+    margin-bottom: floor($grid-vertical-step / 3);
+    color: $gray;
+    font: {
+      size: $font-size-sm;
+      weight: 700;
+    }
+    opacity: .6;
+  }
+}
+.team-card-style-3 {
+  .team-name {
+    margin-bottom: floor($grid-vertical-step / 1.5);
+    font: {
+      //size: $font-size-xl;
+      size: 14px;
+      weight: 600;
+    }
+    padding: 10px;
+  }
+}
+.team-thumb > img {
+  display: block;
+  width: 100%;
+}
+
+// Style 3
+.team-card-style-3{
+  cursor: pointer;
+  position: relative;
+  padding: {
+    top: floor($grid-vertical-step * 1.25);
+    right: floor($grid-vertical-step / 1.2);
+    bottom: floor($grid-vertical-step * 1.6);
+    left: floor($grid-vertical-step / 1.2);
+  }
+  transition: all .35s;
+  border: 1px solid $border-color;
+  .team-thumb {
+    width: 90px;
+    margin: auto;
+    margin-bottom: floor($grid-vertical-step / 1.4);
+  }
+  .team-position { margin-bottom: 0; }
+  .team-contact-link {
+    color: $gray-dark;
+    font-weight: 600;
+    > i { color: $gray !important; }
+    &:hover { color: rgba($gray-dark, .6); }
+  }
+  .team-social-bar-wrap {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    width: 100%;
+    > .team-social-bar {
+      display: table;
+      margin: auto;
+      background-color: $white;
+      box-shadow: $box-shadow-social-btn;
+    }
+  }
+  &:hover {
+    border-color: transparent;
+    box-shadow: $box-shadow-card;
+  }
+}
+
+ul {
+  float: right;
+  list-style-type: none;
+}

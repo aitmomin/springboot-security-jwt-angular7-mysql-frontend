@@ -1,0 +1,44 @@
+<div class="ui success message" *ngIf="success">
+  <div class="header">Succès</div>
+  <p>la nouvelle chanson est bien ajoutée dans l'album.</p>
+</div>
+<br>
+<form class="ui form" [formGroup]="form">
+  <h4 class="ui dividing header">Nouvelle chanson <mat-icon>music_note</mat-icon></h4>
+  <br>
+  <div class="seven wide field">
+    <div class="required field">
+      <label>Titre de chanson</label>
+      <input type="text" name="" formControlName="titre" placeholder="titre" required>
+      <mat-error *ngIf="form?.get('titre').hasError('required') &&  form?.get('titre').touched"><b>entrer le titre de la chanson.</b></mat-error>
+    </div>
+  </div>
+  <div class="seven wide field">
+    <div class="required field">
+      <label>Sélectionner un album</label>
+      <select class="ui fluid dropdown" formControlName="album" required>
+        <option value="">Sélectionner...</option>
+        <option *ngFor="let a of albums" value="{{a.id}}">
+          {{a.albumName}}
+        </option>
+      </select>
+      <mat-error *ngIf="form?.get('album').hasError('required')  &&  form?.get('album').touched"><b>choisir un album.</b></mat-error>
+    </div>
+  </div>
+  <div class="required seven wide field">
+    <label>Sélectionner la chanson</label>
+    <input type="file" formControlName="track" (change)="upload($event)">
+    <audio #dom_audio (canplaythrough)="setDuration($event)" id="audio"></audio>
+    <mat-error *ngIf="form?.get('track').hasError('required') &&  form?.get('track').touched"><b>choisir une chanson.</b></mat-error>
+    <mat-error *ngIf="!fileValide"><b>choisir un fichier valid.</b></mat-error>
+  </div>
+  <br>
+  <div *ngIf="form.valid && fileValide; else echec" class="ui button" tabindex="0" (click)="create()">
+    <i class="plus icon"></i>ajouter la chanson
+  </div>
+  <ng-template #echec>
+    <div class="disabled ui button" tabindex="0" >
+      <i class="plus icon"></i>ajouter la chanson
+    </div>
+  </ng-template>
+</form>

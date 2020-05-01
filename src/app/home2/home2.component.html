@@ -1,0 +1,194 @@
+<div class="container">
+  <ul>
+    <li>
+      <div class="row">
+        <!-- Team member-->
+        <div  >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/02.jpg" alt="Team Member Picture">
+              <h4 class="team-name">Samantha</h4>
+            </div>
+          </div>
+        </div>
+        <!-- Team member-->
+        <div >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/03.jpg" alt="Team Member Picture">
+              <h4 class="team-name">Emma</h4>
+            </div>
+          </div>
+        </div>
+        <!-- Team member-->
+        <div >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/04.jpg" alt="Team Member Picture">
+              <h4 class="team-name">James</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="row">
+        <!-- Team member hidden-->
+        <div style="visibility: hidden">
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/01.jpg" alt="Team Member Picture">
+            </div>
+            <h3 class="team-name">William</h3>
+          </div>
+        </div>
+        <!-- Team member-->
+        <div >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/01.jpg" alt="Team Member Picture">
+              <h4 class="team-name">William</h4>
+            </div>
+          </div>
+        </div>
+        <!-- Team member-->
+        <div >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/02.jpg" alt="Team Member Picture">
+              <h4 class="team-name">Samantha</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="row">
+        <!-- Team member hidden-->
+        <div style="visibility: hidden">
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/01.jpg" alt="Team Member Picture">
+              <h3 class="team-name">William</h3>
+            </div>
+          </div>
+        </div>
+        <!-- Team member hidden-->
+        <div style="visibility: hidden">
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/01.jpg" alt="Team Member Picture">
+            </div>
+            <h3 class="team-name">William</h3>
+          </div>
+        </div>
+        <!-- Team member-->
+        <div >
+          <div class="team-card-style-3 mx-auto">
+            <div class="team-thumb">
+              <img src="https://demo.createx.studio/createx/img/team/style-3/02.jpg" alt="Team Member Picture">
+              <h4 class="team-name">Samantha</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!--
+<ul class="team-members">
+  &lt;!&ndash; single member row starts &ndash;&gt;
+  <li class="clearfix">
+    <div class="member-details">
+      <div>
+        <div class="member-info">
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[0])">
+        <img src="http://localhost:8080/artist/image/{{artists[0]?.id}}" alt="{{artists[0]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[0]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[1])" >
+        <img src="http://localhost:8080/artist/image/{{artists[1]?.id}}" alt="{{artists[1]?.nickname}}" *ngIf="artists[1]?.id">
+        <div class="member-info">
+          <h5>{{artists[1]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+  &lt;!&ndash; single member row starts &ndash;&gt;
+  <li class="clearfix">
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[2])" >
+        <img src="http://localhost:8080/artist/image/{{artists[2]?.id}}" alt="{{artists[2]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[2]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[3])" >
+        <img src="http://localhost:8080/artist/image/{{artists[3]?.id}}" alt="{{artists[3]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[3]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[4])" >
+        <img src="http://localhost:8080/artist/image/{{artists[4]?.id}}" alt="{{artists[4]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[4]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+  &lt;!&ndash; single member row starts &ndash;&gt;
+  <li class="clearfix">
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[5])" >
+        <img src="http://localhost:8080/artist/image/{{artists[5]?.id}}" alt="{{artists[5]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[5]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div (click)="goToAlbums(artists[6])" >
+        <img src="http://localhost:8080/artist/image/{{artists[6]?.id}}" alt="{{artists[6]?.nickname}}" *ngIf="artists[0]?.id">
+        <div class="member-info">
+          <h5>{{artists[6]?.nickname}}</h5>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="member-details animated zoomIn">
+      <div>
+        <div class="member-info">
+        </div>
+      </div>
+    </div>
+  </li>&lt;!&ndash; /single member row ends &ndash;&gt;
+
+</ul>-->

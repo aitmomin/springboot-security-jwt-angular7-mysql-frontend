@@ -1,0 +1,586 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">library_music</i>
+                  </div>
+                  <p class="card-category">Albums</p>
+                  <h3 class="card-title" style="font-size: 40px;"  *ngIf="nbAlbums!==null; else load1">
+                    <b>{{nbAlbums}}</b>
+                  </h3>
+                  <ng-template #load1>
+                    <br>
+                    <div class="ui mini active inline loader card-title"></div>
+                  </ng-template>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <!--<i class="material-icons text-danger">warning</i>-->
+                    <!--<a href="#pablo">Get More Space...</a>-->
+                    <i class="info circle icon"></i> Nombre total d'albums
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <!--<i class="material-icons">music_note</i>-->
+                    <i class="music icon small"></i>
+                  </div>
+                  <p class="card-category">Singles</p>
+                  <h3 class="card-title" style="font-size: 40px;" *ngIf="nbSingles!==null; else load2">
+                    <b>{{nbSingles}}</b>
+                  </h3>
+                  <ng-template #load2>
+                    <br>
+                    <div class="ui mini active inline loader card-title"></div>
+                  </ng-template>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="info circle icon"></i> Nombre total de singles
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-rose card-header-icon">
+                  <div class="card-icon">
+                    <!--<i class="material-icons">info_outline</i>-->
+                    <i class="heart outline icon small"></i>
+                  </div>
+                  <p class="card-category">J'aime</p>
+                  <h3 class="card-title" style="font-size: 40px;" *ngIf="nbRatingTracks!==null; else load3">
+                    <b>{{nbRatingTracks + nbRatingAlbums  | number:'1.0-0'}}</b>
+                  </h3>
+                  <ng-template #load3>
+                    <br>
+                    <div class="ui mini active inline loader card-title"></div>
+                  </ng-template>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="info circle icon"></i> Nombre total de j'aime
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="eye icon"></i>
+                  </div>
+                  <p class="card-category">Vues</p>
+                  <h3 class="card-title" style="font-size: 40px;" *ngIf="nbViewsTracks!==null; else load4">
+                    <b>{{nbViewsTracks + nbViewsAlbums | number:'1.0-0' }}</b>
+                  </h3>
+                  <ng-template #load4>
+                    <br>
+                    <div class="ui mini active inline loader card-title"></div>
+                  </ng-template>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+                    <i class="info circle icon"></i> Nombre total de vues
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-text card-header-icon">
+              <div class="card-icon">
+                <i class="dollar sign icon"></i>
+              </div>
+              <p class="card-category">Montant total</p>
+              <h3 class="card-title" style="font-size: 40px; color: grey" *ngIf="montant!==null; else load5">
+                <div counto [step]="1" [countTo]="albumsPrice+singlesPrice" [countFrom]="0" [duration]="0.1" (countoChange)="x = $event">
+                  <b>{{ x | currency:'MAD':'symbol':'1.2-2'}}</b>
+                </div>
+              </h3>
+              <ng-template #load5>
+                <br>
+                <div class="ui mini active inline loader card-title"></div>
+              </ng-template>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <div class="row" style="padding-top: 10px; padding-left: 110px">
+                  <div class="ui mini statistics">
+                    <div class="statistic">
+                      <div class="value">
+                        {{ albumsPrice | currency:'MAD':'symbol':'1.2-2'}}
+                      </div>
+                      <div class="label">
+                        Albums
+                      </div>
+                    </div>
+                    <div class="statistic">
+                      <div class="value">
+                        {{ singlesPrice | currency:'MAD':'symbol':'1.2-2'}}
+                      </div>
+                      <div class="label">
+                        Singles
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="doughnutDataPrices.length > 0">
+                    <br>
+                    <canvas baseChart
+                            [data]="doughnutDataPrices"
+                            [labels]="doughnutLabelsPrices"
+                            [chartType]="doughnutTypePrices"
+                            [colors]="doughnutColorsPrices"
+                            [options]="doughnutOptionsPrices"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <h4 class="ui horizontal divider header">
+        <i class="dashboard icon"></i>
+        Statistiques sur les albums
+      </h4>
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="card card-chart">
+            <div class="card-header card-header-text">
+              <div *ngIf="barChartDataAlbums.length > 0 && barChartLabelsAlbums.length > 0; else blockAlbums" >
+                <canvas baseChart style="display: block; height: 245px;" height="245"
+                        [datasets]="barChartDataAlbums"
+                        [labels]="barChartLabelsAlbums"
+                        [options]="barChartOptionsAlbums"
+                        [legend]="barChartLegendAlbums"
+                        [chartType]="barChartTypeAlbums">
+                </canvas>
+              </div>
+              <ng-template #blockAlbums>
+                <!--<mdb-progress-bar class="progress danger-color-dark" mode="indeterminate"></mdb-progress-bar>-->
+                <canvas baseChart style="display: block; height: 245px;" height="245"
+                        [datasets]="barChartDataAlbums"
+                        [labels]="barChartLabelsAlbums"
+                        [legend]="barChartLegendAlbums"
+                        [chartType]="barChartTypeAlbums">
+                </canvas>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div >
+            <div class="card card-chart">
+              <div class="card-header card-header-text">
+                <div *ngIf="pieChartDataAlbums.length > 0 && pieChartLabelsAlbums.length > 0; else blockAlbumsPie">
+                  <canvas baseChart
+                          [data]="pieChartDataAlbums"
+                          [labels]="pieChartLabelsAlbums"
+                          [chartType]="pieChartTypeAlbums"
+                          [colors]="pieChartColorsAlbums"
+                          [options]="pieChartOptionsAlbums"
+                  ></canvas>
+                </div>
+                <ng-template #blockAlbumsPie>
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-grow text-secondary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-info" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-success" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <canvas baseChart
+                          [data]="pieChartDataAlbums"
+                          [labels]="pieChartLabelsAlbums"
+                          [chartType]="pieChartTypeAlbums"
+                          [colors]="pieChartColorsAlbums"></canvas>
+                </ng-template>
+              </div>
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+          <div >
+            <div class="card card-chart">
+              <div class="card-header card-header-text">
+                <div *ngIf="doughnutChartDataAlbums.length > 0 && doughnutChartLabelsAlbums.length > 0; else blockAlbumsDoughnut">
+                  <canvas baseChart
+                          [data]="doughnutChartDataAlbums"
+                          [labels]="doughnutChartLabelsAlbums"
+                          [chartType]="doughnutChartTypeAlbums"
+                          [colors]="doughnutChartColorsAlbums"
+                          [options]="doughnutChartOptionsAlbums"></canvas>
+                </div>
+              </div>
+              <ng-template #blockAlbumsDoughnut>
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-grow text-danger" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+                <canvas baseChart
+                        [data]="doughnutChartDataAlbums"
+                        [labels]="doughnutChartLabelsAlbums"
+                        [chartType]="doughnutChartTypeAlbums"
+                        [colors]="doughnutChartColorsAlbums"></canvas>
+              </ng-template>
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <h4 class="ui horizontal divider header">
+        <i class="dashboard icon"></i>
+        Statistiques sur les chansons
+      </h4>
+      <form class="ui form" [formGroup]="form">
+        <div class="two fields">
+          <div class="field">
+            <select class="ui fluid dropdown" formControlName="album" required>
+              <option value="">sélectionner un album</option>
+              <option *ngFor="let a of albums" value="{{a.id}}">
+                <!--<img class="ui avatar image" src="http://localhost:8080/album/image/{{a.id}}">-->
+                {{a.albumName}}
+              </option>
+            </select>
+            <mat-error *ngIf="form?.get('album').hasError('required')  &&  form?.get('album').touched"><b>choisir un album.</b></mat-error>
+          </div>
+          <div class="field">
+            <div *ngIf="form.valid; else echec" class="ui button" tabindex="0" (click)="display()">
+              <i class="paper plane outline icon"></i>afficher
+            </div>
+            <ng-template #echec>
+              <div class="disabled ui button" tabindex="0">
+                <i class="paper plane outline icon"></i>afficher
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              <div class="ct-chart" id="tracksViewsChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Nombre de vues <i class="eye icon"></i> par chanson</h4>
+            </div>
+            <div class="card-footer">
+              <!--<div class="stats">-->
+                <!--<i class="material-icons">access_time</i> updated 4 minutes ago-->
+              <!--</div>-->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-danger">
+              <div class="ct-chart" id="tracksRatingChart"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Nombre de j'aime <i class="heart outline icon"></i> par chanson</h4>
+            </div>
+            <div class="card-footer">
+              <!--<div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="dataSourceAlbums.data.length > 0; else block">
+        <div _ngcontent-c5="" class="col-md-12">
+          <div _ngcontent-c5="" class="card">
+            <div _ngcontent-c5="" class="card-header card-header-success">
+              <h4 _ngcontent-c5="" class="card-title" *ngIf="selectedAlbum">{{selectedAlbum.albumName}}</h4>
+              <p _ngcontent-c5="" class="card-category" *ngIf="selectedAlbum">({{selectedAlbum.views}} vues, {{selectedAlbum.rating}} j'aime)</p>
+            </div>
+            <!--<div _ngcontent-c5="" class="card-body table-responsive">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter1($event.target.value)" placeholder="Filtrer">
+              </mat-form-field>
+
+              <table mat-table matSort [dataSource]="dataSourceAlbums"  style="width: 100%">
+
+                &lt;!&ndash; N° Column &ndash;&gt;
+                <ng-container matColumnDef="trackNumber">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+                  <td mat-cell *matCellDef="let row"> {{row.trackNumber }} </td>
+                  &lt;!&ndash;<td mat-footer-cell *matFooterCellDef> Total </td>&ndash;&gt;
+                </ng-container>
+
+                &lt;!&ndash; track title Column &ndash;&gt;
+                <ng-container matColumnDef="trackTitle">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> titre de chanson </th>
+                  <td mat-cell *matCellDef="let row">{{row.trackTitle}} </td>
+                </ng-container>
+
+                &lt;!&ndash; views Column &ndash;&gt;
+                <ng-container matColumnDef="views">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> <mat-icon>visibility</mat-icon> </th>
+                  <td mat-cell *matCellDef="let row"> {{row.views}} vues</td>
+                </ng-container>
+
+                &lt;!&ndash; rating Column &ndash;&gt;
+                <ng-container matColumnDef="rating">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> j'aime </th>
+                  <td mat-cell *matCellDef="let row"> <i class="heart outline icon"></i> {{row.rating}} </td>
+                </ng-container>
+
+                &lt;!&ndash; rating Column &ndash;&gt;
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> prix </th>
+                  <td mat-cell *matCellDef="let row"> {{row.price | currency:'MAD'}} </td>
+                  &lt;!&ndash;<td mat-footer-cell *matFooterCellDef> {{albumPrice}} </td>&ndash;&gt;
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsAlbums"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsAlbums;"></tr>
+                &lt;!&ndash;<tr mat-footer-row *matFooterRowDef="displayedColumnsAlbums; sticky: true"></tr>&ndash;&gt;
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+            </div>-->
+            <div _ngcontent-c5="" class="card-body table-responsive">
+              <div class="example-container mat-elevation-z8">
+                <table mat-table [dataSource]="dataSourceAlbums">
+
+                  <!-- N° Column -->
+                  <ng-container matColumnDef="trackNumber">
+                    <th mat-header-cell *matHeaderCellDef> N° </th>
+                    <td mat-cell *matCellDef="let row"> {{row.trackNumber }} </td>
+                    <td mat-footer-cell *matFooterCellDef> <b>Total</b> </td>
+                  </ng-container>
+
+                  <!-- track title Column -->
+                  <ng-container matColumnDef="trackTitle">
+                    <th mat-header-cell *matHeaderCellDef> titre de chanson </th>
+                    <td mat-cell *matCellDef="let row">{{row.trackTitle}} </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                  </ng-container>
+
+                  <!-- views Column -->
+                  <ng-container matColumnDef="views">
+                    <th mat-header-cell *matHeaderCellDef> <mat-icon>visibility</mat-icon> </th>
+                    <td mat-cell *matCellDef="let row"> {{row.views}} vues</td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                  </ng-container>
+
+                  <!-- rating Column -->
+                  <ng-container matColumnDef="rating">
+                    <th mat-header-cell *matHeaderCellDef> j'aime </th>
+                    <td mat-cell *matCellDef="let row"> <i class="heart outline icon"></i> {{row.rating}} </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                  </ng-container>
+
+                  <!-- price Column -->
+                  <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> prix </th>
+                    <td mat-cell *matCellDef="let row"> {{row.price | currency:'MAD'}} </td>
+                    <td mat-footer-cell *matFooterCellDef> <b>{{getTotalPrice() | currency:'MAD'}}</b> </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsAlbums"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsAlbums;"></tr>
+                  <tr mat-footer-row *matFooterRowDef="displayedColumnsAlbums; sticky: true"></tr>
+
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #block>
+        <div style="visibility: hidden">
+          <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+        </div>
+      </ng-template>
+      <br>
+      <h4 class="ui horizontal divider header">
+        <i class="dashboard icon"></i>
+        Statistiques sur les singles
+      </h4>
+      <div >
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-text">
+                <div *ngIf="pieChartDataSingles.length > 0 && pieChartLabelsSingles.length > 0; else blockSinglesPie">
+                  <canvas baseChart
+                          [data]="pieChartDataSingles"
+                          [labels]="pieChartLabelsSingles"
+                          [chartType]="pieChartTypeSingles"
+                          [colors]="pieChartColorsSingles"
+                          [options]="pieChartOptionsSingles"></canvas>
+                </div>
+                <ng-template #blockSinglesPie>
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-grow text-danger" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <canvas baseChart
+                          [data]="pieChartDataSingles"
+                          [labels]="pieChartLabelsSingles"
+                          [chartType]="pieChartTypeSingles"
+                          [colors]="pieChartColorsSingles"></canvas>
+                </ng-template>
+              </div>
+              <!--<div class="card-body">
+                <div class="row">
+                  <i class="quote left icon"></i>
+                  <h4 class="card-title"><b>Nombre de j'aime et vues par album.</b></h4>
+                </div>
+              </div>-->
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-text">
+                <div *ngIf="doughnutChartDataSingles.length > 0 && doughnutChartLabelsSingles.length > 0; else blockSinglesDoughnut">
+                  <canvas baseChart
+                          [data]="doughnutChartDataSingles"
+                          [labels]="doughnutChartLabelsSingles"
+                          [chartType]="doughnutChartTypeSingles"
+                          [colors]="doughnutChartColorsSingles"
+                          [options]="doughnutChartOptionsSingles"
+                  ></canvas>
+                </div>
+                <ng-template #blockSinglesDoughnut>
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-grow text-danger" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-warning" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="spinner-grow text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                  <canvas baseChart
+                          [data]="doughnutChartDataSingles"
+                          [labels]="doughnutChartLabelsSingles"
+                          [chartType]="doughnutChartTypeSingles"
+                          [colors]="doughnutChartColorsSingles"></canvas>
+                </ng-template>
+              </div>
+              <!--<div class="card-body">
+                <div class="row">
+                  <i class="quote left icon"></i>
+                  <h4 class="card-title"><b>Nombre de j'aime et vues par album.</b></h4>
+                </div>
+              </div>-->
+              <div class="card-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card card-chart">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-7" >
+                  <br>
+                  <div *ngIf="barChartDataSingles.length > 0 && barChartLabelsSingles.length > 0; else blockSingles">
+                    <canvas baseChart style="display: block; height: 200px;" height="200"
+                            [datasets]="barChartDataSingles"
+                            [labels]="barChartLabelsSingles"
+                            [options]="barChartOptionsSingles"
+                            [legend]="barChartLegendSingles"
+                            [chartType]="barChartTypeSingles">
+                    </canvas>
+                  </div>
+                  <ng-template #blockSingles>
+                    <!--<mdb-progress-bar class="progress danger-color-dark" mode="indeterminate"></mdb-progress-bar>-->
+                    <canvas baseChart style="display: block; height: 245px;" height="245"
+                            [datasets]="barChartDataSingles"
+                            [labels]="barChartLabelsSingles"
+                            [legend]="barChartLegendSingles"
+                            [chartType]="barChartTypeSingles">
+                    </canvas>
+                  </ng-template>
+                </div>
+                <div class="col-md-5" style="display: block" *ngIf="dataSourceSingles.data.length > 0">
+                  <div _ngcontent-c5="">
+                    <div _ngcontent-c5="" class="card">
+                      <div _ngcontent-c5="" class="card-body table-responsive">
+
+                        <mat-form-field>
+                          <input matInput (keyup)="applyFilter2($event.target.value)" placeholder="Filtrer">
+                        </mat-form-field>
+
+                        <table mat-table #MatSortS="matSort" [dataSource]="dataSourceSingles" matSort style="width: 100%">
+
+                          <!-- N° Column -->
+                          <ng-container matColumnDef="trackNumber">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+                            <td mat-cell *matCellDef="let row"> {{row.trackNumber }} </td>
+                          </ng-container>
+
+                          <!-- track title Column -->
+                          <ng-container matColumnDef="trackTitle">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> titre de single </th>
+                            <td mat-cell *matCellDef="let row">{{row.trackTitle}} </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsSingles"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsSingles;">
+                          </tr>
+                        </table>
+                        <mat-paginator #MatPaginatorS [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<p>list of Artists :</p><br>
+<div class="row">
+  <div *ngFor="let artist of artists | async" class="col-sm-3">
+    <p-card header="{{artist.nickname}}" [style]="{width: '200px'}" styleClass="ui-card-shadow">
+      <p-header>
+        <img src="Card" src="http://localhost:8080/artist/image/{{artist.id}}" height="100">
+      </p-header>
+      <button pButton type="button" label="Albums" icon="pi pi-times" class="ui-button-secondary" (click)="goToAlbums(artist.id)"></button>
+      <!--<p-footer>-->
+      <!--<button pButton type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>-->
+      <!--</p-footer>-->
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.heartColor{
+  color: #fc2e5a;
+}
+
+.style{
+  width: 100px;
+  width: 100px;
+  //border-color: white;
+  //border-style: groove;
+  //border-width: 1px;
+  padding-left: 15px;
+}
+
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+
+.clickcursor{
+  cursor: pointer;
+}
+
+
+.album-card {
+  overflow: hidden;
+  margin: 20px 0px;
+  padding: 0;
+  cursor: pointer;
+  height: 250;
+}
+
+.album-title {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+  overflow: hidden;
+}
+
+.no-scroll{
+  overflow: hidden;
+  scrollbar-width: none;
+  padding-left: 10px;
+}
+
+div.no-scroll{
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+mat-tab.no-scroll{
+  overflow: hidden;
+  scrollbar-width: none;
+}
